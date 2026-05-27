@@ -5,7 +5,7 @@ Un microservicio Serverless-ready para conversión de divisas, utilizando la API
 
 ## 🔗 Endpoints de Frankfurter Utilizados
 
-Para construir este microservicio, nos apoyamos en la API v2 de Frankfurter, específicamente en los siguientes endpoints:
+Para construir este microservicio, utilicé la API v2 de Frankfurter, específicamente en los siguientes endpoints:
 
 - **`/v2/currencies`**: Se usa para obtener el catálogo completo de monedas globales soportadas, incluyendo sus códigos ISO y nombres completos.
 - **`/v2/rate/{base}/{quote}`**: Se usa para obtener la tasa de cambio exacta y actual entre una moneda de origen (base) y una de destino (quote).
@@ -29,7 +29,11 @@ Para construir este microservicio, nos apoyamos en la API v2 de Frankfurter, esp
    pnpm start
    ```
 
-El servicio se ejecuta por defecto en `http://localhost:8000`. También incluye una página web de prueba accesible ingresando a esa misma ruta desde un navegador.
+> - ### .ENV
+
+  >> POST=8000
+  
+  >> FRANKFURTER_API_URL=[[https://frankfurter.dev/](https://frankfurter.dev/)]
 
 ---
 
