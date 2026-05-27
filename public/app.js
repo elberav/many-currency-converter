@@ -84,4 +84,14 @@ document.getElementById('btn-convert').addEventListener('click', () => testAPI('
 document.getElementById('btn-rate').addEventListener('click', () => testAPI('rate'));
 document.getElementById('btn-history').addEventListener('click', () => testAPI('history'));
 
+// Interceptar el scroll del ratón en la caja de monedas para hacerlo más lento
+const quoteSelectBox = document.getElementById('quote');
+quoteSelectBox.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    // En lugar de saltar 3-4 opciones (default), saltamos de 1 en 1 (aprox 35px)
+    // Esto lo hace sentir 3 puntos más lento y más suave.
+    const scrollAmount = e.deltaY > 0 ? 35 : -35; 
+    quoteSelectBox.scrollBy({ top: scrollAmount, behavior: 'smooth' });
+});
+
 loadCurrencies();

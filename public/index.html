@@ -65,7 +65,25 @@
         
         select[multiple] {
             height: auto;
-            min-height: 180px;
+            min-height: 160px;
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+        }
+
+        /* Estilizar el scrollbar para que se vea y sienta más suave */
+        select[multiple]::-webkit-scrollbar {
+            width: 10px;
+        }
+        select[multiple]::-webkit-scrollbar-track {
+            background: #f8fafc;
+            border-radius: 5px;
+        }
+        select[multiple]::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 5px;
+        }
+        select[multiple]::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
         }
         .button-group {
             display: flex;
@@ -134,7 +152,7 @@
 
         <div class="form-group">
             <label for="quote">Moneda Destino (Quote):</label>
-            <select id="quote" multiple size="8">
+            <select id="quote" multiple size="5">
                 <option value="PEN">Cargando monedas...</option>
             </select>
             <div class="hint">Nota: Mantén presionado Ctrl (Windows) o Cmd (Mac) para seleccionar varias monedas a la vez.</div>
