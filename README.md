@@ -1,6 +1,7 @@
 # Currency Converter API Microservice
 
 Un microservicio Serverless-ready para conversión de divisas, utilizando la API pública de Frankfurter. Cuenta con un sistema de caché en RAM para optimizar tiempos de respuesta y una interfaz web de prueba.
+![image](https://github.com/elberav/many-currency-converter/blob/master/public/image.jpeg)
 
 ## 🔗 Endpoints de Frankfurter Utilizados
 
