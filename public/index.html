@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency API Tester</title>
+    <style>
+        :root {
+            --primary: #4F46E5;
+            --primary-hover: #4338CA;
+            --bg: #F3F4F6;
+            --card-bg: #FFFFFF;
+            --text: #1F2937;
+            --border: #D1D5DB;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            max-width: 500px;
+        }
+        h1 {
+            font-size: 1.5rem;
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        select, input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            background-color: #fff;
+        }
+        select:focus, input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+        }
+        
+        select[multiple] {
+            height: auto;
+            min-height: 180px;
+        }
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 1.5rem;
+        }
+        button {
+            flex: 1;
+            padding: 0.75rem;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        button:hover {
+            background-color: var(--primary-hover);
+        }
+        .btn-secondary {
+            background-color: #6B7280;
+        }
+        .btn-secondary:hover {
+            background-color: #4B5563;
+        }
+        #result-container {
+            margin-top: 1.5rem;
+        }
+        #result {
+            background-color: #1F2937;
+            color: #10B981;
+            padding: 1rem;
+            border-radius: 6px;
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre-wrap;
+            word-break: break-all;
+            margin: 0;
+            min-height: 80px;
+            overflow-x: auto;
+        }
+        .hint {
+            font-size: 0.8rem;
+            color: #6B7280;
+            margin-top: 0.25rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>💸 Currency API Tester</h1>
+        
+        <div class="form-group">
+            <label for="amount">Cantidad a convertir:</label>
+            <input type="number" id="amount" value="100" step="0.01" min="0">
+        </div>
+
+        <div class="form-group">
+            <label for="base">Moneda Origen (Base):</label>
+            <select id="base">
+                <option value="USD">Cargando monedas...</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="quote">Moneda Destino (Quote):</label>
+            <select id="quote" multiple size="8">
+                <option value="PEN">Cargando monedas...</option>
+            </select>
+            <div class="hint">Nota: Mantén presionado Ctrl (Windows) o Cmd (Mac) para seleccionar varias monedas a la vez.</div>
+        </div>
+
+        <div class="button-group">
+            <button id="btn-convert">Probar /convert-many</button>
+            <button id="btn-rate" class="btn-secondary">Probar /rate</button>
+            <button id="btn-history" class="btn-secondary" style="background-color: #8B5CF6;">Probar Historial</button>
+        </div>
+
+        <div id="result-container">
+            <label>Respuesta del Microservicio:</label>
+            <pre id="result">Aún no se ha realizado ninguna petición...</pre>
+        </div>
+    </div>
+
+    <script src="/app.js"></script>
+</body>
+</html>
