@@ -1,41 +1,34 @@
 FROM node:20-alpine AS builder
 
-# Configurar directorio de trabajo
+RUN corepack enable && corepack prepare pnpm@latest --activate
+
 WORKDIR /app
 
-# Instalar pnpm globalmente
-RUN npm install -g pnpm
-
-# Copiar archivos de dependencias
 COPY package.json pnpm-lock.yaml ./
-
-# Instalar TODAS las dependencias (incluyendo devDependencies para compilar TypeScript)
 RUN pnpm install --frozen-lockfile
 
-# Copiar el resto del código fuente
 COPY . .
-
-# Compilar TypeScript a JavaScript
 RUN pnpm run build
 
-# --- Etapa de Producción ---
 FROM node:20-alpine
+
+RUN corepack enable && corepack prepare pnpm@latest --activate
 
 WORKDIR /app
 
-# Instalar pnpm globalmente
-RUN npm install -g pnpm
-
-# Copiar solo lo necesario desde el builder
 COPY --from=builder /app/package.json /app/pnpm-lock.yaml ./
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/public ./public
 
-# Instalar SOLO las dependencias de producción (más ligero y seguro)
-RUN pnpm install --prod --frozen-lockfile
+RUN pnpm install --prod --frozen-lockfile && pnpm store prune
 
-# Exponer el puerto
+USER node
+
 EXPOSE 8000
 
-# Iniciar la aplicación
-CMD ["pnpm", "start"]
+ENV PORT=8000
+
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s \
+  CMD wget --no-verbose --tries=1 --spider http://localhost:$PORT/ || exit 1
+
+CMD ["node", "dist/index.js"]
